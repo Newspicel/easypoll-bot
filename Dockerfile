@@ -1,13 +1,22 @@
-FROM maven:3.6.0-jdk-11-slim AS build
-WORKDIR /build
+FROM gradle:7.1-jdk16 AS TEMP_BUILD_IMAGE
+ENV APP_HOME=/usr/app/
 
-COPY src ./src
-COPY pom.xml .
+WORKDIR $APP_HOME
+COPY build.gradle settings.gradle $APP_HOME
 
-RUN mvn -f pom.xml clean package
+COPY gradle $APP_HOME/gradle
+COPY --chown=gradle:gradle . /home/gradle/src
+USER root
+RUN chown -R gradle /home/gradle/src
 
-FROM openjdk:11-jre-slim
-WORKDIR /app
-COPY --from=build /build/target/EasyPoll-3.0-jar-with-dependencies.jar /app/EasyPoll.jar
+RUN gradle shadowJar || return 0
+COPY . .
 
-ENTRYPOINT ["java","-jar","/app/EasyPoll.jar"]
+FROM openjdk:16-jdk-slim
+ENV ARTIFACT_NAME=EasyPoll-3.0-all.jar
+ENV APP_HOME=/usr/app/
+
+WORKDIR $APP_HOME
+COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
+
+ENTRYPOINT exec java -jar ${ARTIFACT_NAME}
