@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'application'
+}
+
+group = 'de.fbrettnich'
+version = '3.0'
+description = 'EasyPoll'
+java.sourceCompatibility = JavaVersion.VERSION_16
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri('https://jitpack.io')
+    }
+
+    maven {
+        url = uri('https://m2.dv8tion.net/releases')
+    }
+}
+
+dependencies {
+    implementation 'com.github.DV8FromTheWorld:JDA:d53cac9ab944e771f49f5f176713cdde35d5e979'
+    implementation 'org.mongodb:mongodb-driver:3.7.0'
+    implementation 'mysql:mysql-connector-java:8.0.16'
+    implementation 'com.vdurmont:emoji-java:5.1.1'
+    implementation 'io.sentry:sentry:5.0.1'
+    implementation 'com.konghq:unirest-java:3.11.09'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+}
+
+application {
+    mainClass = 'de.fbrettnich.easypoll.core.Main'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

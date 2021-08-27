@@ -1,4 +1,6 @@
 .idea/
-src/test/
-target/
 config.properties
+
+.gradle
+**/build/
+!src/**/build/
