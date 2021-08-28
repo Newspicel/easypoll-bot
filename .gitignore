@@ -4,3 +4,6 @@ config.properties
 .gradle
 **/build/
 !src/**/build/
+bin
+build
+.settings

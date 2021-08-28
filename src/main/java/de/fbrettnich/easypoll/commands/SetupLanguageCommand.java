@@ -1,26 +1,8 @@
-/*
- * EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)
- * Copyright (C) 2021  Felix Brettnich
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package de.fbrettnich.easypoll.commands;
 
 import de.fbrettnich.easypoll.core.Constants;
-import de.fbrettnich.easypoll.core.Main;
 import de.fbrettnich.easypoll.language.GuildLanguage;
+import de.fbrettnich.easypoll.language.GuildLanguageService;
 import de.fbrettnich.easypoll.language.TranslationManager;
 import io.sentry.Sentry;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -35,21 +17,30 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectionMenu;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.awt.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+@Singleton
 public class SetupLanguageCommand {
 
-    public SetupLanguageCommand(@Nonnull SlashCommandEvent event, GuildLanguage gl) {
+    @Inject
+    private GuildLanguageService guildLanguageService;
+
+    @Inject
+    private TranslationManager translationManager;
+
+    public void run(@Nonnull SlashCommandEvent event, GuildLanguage gl) {
 
         event.deferReply().queue(null, Sentry::captureException);
 
-        TranslationManager tm = Main.getTranslationManager();
         InteractionHook hook = event.getHook();
         Member member = event.getMember();
 
-        if(member == null) return;
+        if (member == null) return;
+
 
         if(
                 !member.isOwner() &&
@@ -61,9 +52,9 @@ public class SetupLanguageCommand {
             EmbedBuilder eb = new EmbedBuilder();
 
             eb.setColor(Color.RED);
-            eb.setTitle(gl.getTl("errors.no_permissions.member.title"), Constants.WEBSITE_URL);
+            eb.setTitle(guildLanguageService.getTranslation(gl, "errors.no_permissions.member.title"), Constants.WEBSITE_URL);
             eb.addField(
-                    gl.getTl("errors.no_permissions.member.field.title"),
+                    guildLanguageService.getTranslation(gl, "errors.no_permissions.member.field.title"),
                     "\u2022 ADMINISTRATOR *(Permission)*\n" +
                             "\u2022 MANAGE_PERMISSIONS *(Permission)*",
                     true);
@@ -84,22 +75,22 @@ public class SetupLanguageCommand {
 
         EmbedBuilder eb = new EmbedBuilder();
 
-        eb.setTitle(gl.getTl("commands.setup.language.change.title"), Constants.WEBSITE_URL);
+        eb.setTitle(guildLanguageService.getTranslation(gl, "commands.setup.language.change.title"), Constants.WEBSITE_URL);
         eb.setColor(Color.decode("#01FF70"));
-        eb.setDescription(gl.getTl("commands.setup.language.change.description"));
+        eb.setDescription(guildLanguageService.getTranslation(gl, "commands.setup.language.change.description"));
 
 
         SelectionMenu.Builder selectionMenuBuilder = SelectionMenu
                 .create("ChangeLanguageMenu")
-                .setPlaceholder(gl.getTl("commands.setup.language.change.selectionmenu.placeholder"))
+                .setPlaceholder(guildLanguageService.getTranslation(gl, "commands.setup.language.change.selectionmenu.placeholder"))
                 .setMinValues(1)
                 .setMaxValues(1);
 
-        tm.getLanguages().forEach(lang -> selectionMenuBuilder.addOption(
-                        tm.getTranslation(lang, "translation.name_local"),
+        translationManager.getLanguages().forEach(lang -> selectionMenuBuilder.addOption(
+                        translationManager.getTranslation(lang, "translation.name_local"),
                         lang,
-                        tm.getTranslation(lang, "translation.name"),
-                        Emoji.fromUnicode(tm.getTranslation(lang, "translation.flag_unicode"))
+                        translationManager.getTranslation(lang, "translation.name"),
+                        Emoji.fromUnicode(translationManager.getTranslation(lang, "translation.flag_unicode"))
                 )
         );
 

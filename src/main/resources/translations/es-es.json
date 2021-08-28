@@ -1,0 +1,146 @@
+{
+  "translation": {
+    "name": "Spanish",
+    "name_local": "Español",
+    "code": "es-es",
+    "flag_unicode": "\uD83C\uDDEA\uD83C\uDDF8",
+    "translators": "Newspicel#4242 (850045707917328474)"
+  },
+  "polls": {
+    "question": "Pregunta",
+    "choices": "Opciones",
+    "yes": "Sí",
+    "no": "No",
+    "finalresult": "Resultado final",
+    "alreadyended": "La encuesta ya ha terminado",
+    "ends": "Finaliza",
+    "multiplechoice": {
+      "allowed": "Se permiten múltiples opciones",
+      "disallowed": "No se permiten opciones múltiples"
+    },
+    "noothervotes": "No se permiten otros votos",
+    "pollid": "ID de la encuesta: %s"
+  },
+  "commands": {
+    "closepoll": {
+      "success": {
+        "title": "Encuesta cerrada",
+        "description": "La encuesta con ID **%s** fue cerrada!\nNo se permiten más votos y el resultado se muestra ahora en la encuesta."
+      },
+      "failed": {
+        "title": "La encuesta no se puede cerrar",
+        "description": "La encuesta con ID **%s** ya está cerrada o no existe."
+      }
+    },
+    "help": {
+      "title": "Ayuda de EasyPoll",
+      "fields": {
+        "poll_commands": {
+          "title": ":bar_chart: Comandos de la encuesta",
+          "commands": {
+            "poll": "Crear una encuesta normal sin límite de tiempo",
+            "timepoll": "Crear una encuesta con límite de tiempo, estableciendo una fecha de finalización hasta la que se ejecutará la encuesta",
+            "closepoll": "Cerrar una encuesta para que no se cuenten más votos"
+          }
+        },
+        "public_commands": {
+          "title": ":mag_right: Comandos públicos",
+          "commands": {
+            "help": "Mostrar la ayuda de este bot",
+            "vote": "Votar por el Bot EasyPoll",
+            "invite": "Invita a EasyPoll a tu propio servidor Discord",
+            "info": "Mostrar información sobre EasyPoll",
+            "ping": "Ver el Ping del Bot a la Puerta de Discordia"
+          }
+        }
+      }
+    },
+    "info": {
+      "title": "Información sobre EasyPoll",
+      "fields": {
+        "creator": "Creador",
+        "repository": "Repositorio",
+        "version": "Versión",
+        "library": "Biblioteca",
+        "servers": "Servidores",
+        "users": "Usuarios",
+        "shard": "Fragmento",
+        "uptime": "Tiempo de actividad"
+      }
+    },
+    "invite": {
+      "title": "Invitar a EasyPoll",
+      "description": "Puedes invitar a la %s aquí: [www.easypoll.me/invite](%s)"
+    },
+    "ping": {
+      "title": "¡Pong! :ping_pong:",
+      "description": "`Ping a Gateway %s ms`"
+    },
+    "poll": {
+      "invalid_time": {
+        "title": "Especificación de tiempo inválida!",
+        "field": {
+          "title": "Has introducido una hora no válida!",
+          "description": "Utilice un código de tiempo válido. Los códigos de tiempo pueden consistir en varios tiempos que terminan en s (segundo), m (minuto), h (hora), d (día) o w (semana).\nEjemplos: 15m para 15 minutos, 1h para 1 hora, 3d para 3 días, 3d5h2m para 3 días, 5 horas y 2 minutos\n\n*PS: Puedes hacer clic en el comando azul `/timepoll` encima de este mensaje para recibir una copia del comando utilizado para tu encuesta*"
+        }
+      },
+      "unknown_emoji": {
+        "title": "Emoji desconocido",
+        "field": {
+          "title": "Has especificado un emoji desconocido.",
+          "description": "Por favor, asegúrese de que se trata de un emoji **oficial de Discord** o de un emoji **de este servidor**. EasyPoll sólo puede utilizar emojis de servidores en los que EasyPoll también está presente.\n\n*PS: Puede hacer clic en el comando azul `%s` encima de este mensaje para recibir una copia del comando utilizado para su encuesta*"
+        }
+      }
+    },
+    "setup": {
+      "language": {
+        "change": {
+          "title": "Cambiar el idioma del bot",
+          "description": "Aquí puede cambiar el idioma del Bot en este servidor.\nPor favor, seleccione un nuevo idioma:",
+          "selectionmenu": {
+            "placeholder": "Seleccione un idioma.."
+          }
+        },
+        "success": {
+          "title": "El idioma del Bot ha sido cambiado",
+          "description": "El idioma del Bot en este servidor fue cambiado exitosamente a **%s**.",
+          "footer": "Cambiado por %s"
+        }
+      },
+      "permissions": {
+        "title": "Comprobación de los permisos del bot requeridos",
+        "server_permissions": "Permisos del servidor",
+        "channel_permissions": "Permisos del canal",
+        "permissions": {
+          "message_read": "Leer Mensajes",
+          "message_write": "Enviar mensajes",
+          "message_manage": "Gestionar mensajes",
+          "message_embed_links": "Insertar enlaces",
+          "message_history": "Leer el historial de mensajes",
+          "message_add_reaction": "Añadir reacciones",
+          "message_ext_emoji": "Usar emojis externos"
+        }
+      }
+    },
+    "vote": {
+      "title": "Vota por EasyPoll",
+      "description": "Nos alegra que quieras votar por nuestro bot. Nos demuestran que les gusta el bot y nos ayudan a seguir creciendo.\n\nPuedes votar por nosotros en las siguientes páginas:"
+    }
+  },
+  "errors": {
+    "no_permissions": {
+      "member": {
+        "title": "No tienes permisos para usar este comando.",
+        "field": {
+          "title": "Para utilizar este comando necesitas al menos uno de ellos:"
+        }
+      },
+      "bot": {
+        "title": "No tengo los permisos necesarios para realizar todas las acciones!",
+        "field": {
+          "title": "Por favor, asegúrese de que tengo los siguientes permisos:"
+        }
+      }
+    }
+  }
+}

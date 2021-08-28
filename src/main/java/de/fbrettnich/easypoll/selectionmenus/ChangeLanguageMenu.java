@@ -1,25 +1,8 @@
-/*
- * EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)
- * Copyright (C) 2021  Felix Brettnich
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package de.fbrettnich.easypoll.selectionmenus;
 
 import de.fbrettnich.easypoll.core.Constants;
 import de.fbrettnich.easypoll.language.GuildLanguage;
+import de.fbrettnich.easypoll.language.GuildLanguageService;
 import io.sentry.Sentry;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -34,14 +17,20 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectOption;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+@Singleton
 public class ChangeLanguageMenu {
 
-    public ChangeLanguageMenu(@Nonnull SelectionMenuEvent event, GuildLanguage gl) {
+    @Inject
+    private GuildLanguageService guildLanguageService;
+
+    public void run(@Nonnull SelectionMenuEvent event, GuildLanguage gl) {
 
         event.deferReply().queue(null, Sentry::captureException);
 
@@ -64,9 +53,9 @@ public class ChangeLanguageMenu {
             EmbedBuilder eb = new EmbedBuilder();
 
             eb.setColor(Color.RED);
-            eb.setTitle(gl.getTl("errors.no_permissions.member.title"), Constants.WEBSITE_URL);
+            eb.setTitle(guildLanguageService.getTranslation(gl, "errors.no_permissions.member.title"), Constants.WEBSITE_URL);
             eb.addField(
-                    gl.getTl("errors.no_permissions.member.field.title"),
+                    guildLanguageService.getTranslation(gl, "errors.no_permissions.member.field.title"),
                     "\u2022 ADMINISTRATOR *(Permission)*\n" +
                             "\u2022 MANAGE_PERMISSIONS *(Permission)*",
                     true);
@@ -97,15 +86,15 @@ public class ChangeLanguageMenu {
 
         gl.setLanguage(lang);
 
-        EmbedBuilder eb = new EmbedBuilder();
+        guildLanguageService.setGuildLanguage(gl).subscribe(o -> {
+            EmbedBuilder eb = new EmbedBuilder();
 
-        eb.setTitle(gl.getTl("commands.setup.language.success.title"), Constants.WEBSITE_URL);
-        eb.setColor(Color.decode("#01FF70"));
-        eb.setDescription(gl.getTl("commands.setup.language.success.description", gl.getTl("translation.name_local")));
-        eb.setFooter(gl.getTl("commands.setup.language.success.footer", (user.getName() + "#" + user.getDiscriminator())));
+            eb.setTitle(guildLanguageService.getTranslation(gl, "commands.setup.language.success.title"), Constants.WEBSITE_URL);
+            eb.setColor(Color.decode("#01FF70"));
+            eb.setDescription(guildLanguageService.getTranslation(gl, "commands.setup.language.success.description", guildLanguageService.getTranslation(gl, "translation.name_local")));
+            eb.setFooter(guildLanguageService.getTranslation(gl, "commands.setup.language.success.footer", (user.getName() + "#" + user.getDiscriminator())));
 
-        hook.sendMessageEmbeds(
-                eb.build()
-        ).queue(null, Sentry::captureException);
+            hook.sendMessageEmbeds(eb.build()).queue(null, Sentry::captureException);
+        });
     }
 }

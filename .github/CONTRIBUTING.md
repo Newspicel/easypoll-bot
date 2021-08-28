@@ -1,9 +1,9 @@
-## Contributing to EasyPoll
+## Contributing to EasyPoll-Recode
 If you want to contribute to EasyPoll, follow these steps:
-- [Fork](https://github.com/fbrettnich/easypoll-bot/fork) this repository
+- [Fork](https://github.com/newspicel/easypoll-bot/fork) this repository
 - Make your changes
 - Check your changes
-- Create a [pull request](https://github.com/fbrettnich/easypoll-bot/pulls)
+- Create a [pull request](https://github.com/newspicel/easypoll-bot/pulls)
     - **Important:** Create pull requests only in our `development` or `feature` branch, pull requests to the `main` branch will be rejected!
 
 ## Don't forget "Signed-off-by"
@@ -51,7 +51,7 @@ personal information I submit with it, including my sign-off) is
 maintained indefinitely and may be redistributed consistent with  
 this project or the open source license(s) involved.
 
-## License
+## License from fork EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)
 EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)  
 Copyright (C) 2021  Felix Brettnich  
 

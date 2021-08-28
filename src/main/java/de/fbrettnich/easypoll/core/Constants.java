@@ -1,21 +1,3 @@
-/*
- * EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)
- * Copyright (C) 2021  Felix Brettnich
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package de.fbrettnich.easypoll.core;
 
 import java.awt.*;
@@ -24,11 +6,11 @@ public class Constants {
 
     public static boolean DEVMODE = true;
 
-    public static final String VERSION = "3.0.0";
+    public static final String VERSION = "4.0.0";
     public static final String DEFAULT_LANGUAGE = "en-us";
 
     public static String BOT_ID = "";
-    public static final String BOT_OWNER_MENTION = "<@231091710195662848>";
+    public static final String BOT_OWNER_MENTION = "<@850045707917328474> & <@231091710195662848>";
 
     public static final String WEBSITE_URL = "https://easypoll.me/?utm_source=discordbot&utm_medium=website&utm_campaign=easypoll";
     public static final String INVITE_URL = "https://discord.com/oauth2/authorize?client_id=437618149505105920&permissions=355392&redirect_uri=https%3A%2F%2Feasypoll.me%2Fdiscord&response_type=code&scope=bot%20applications.commands";

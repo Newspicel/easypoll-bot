@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'de.fbrettnich'
-version = '3.0'
+version = '4.0'
 description = 'EasyPoll'
 java.sourceCompatibility = JavaVersion.VERSION_16
 
@@ -22,16 +22,27 @@ repositories {
 
 dependencies {
     implementation 'com.github.DV8FromTheWorld:JDA:d53cac9ab944e771f49f5f176713cdde35d5e979'
-    implementation 'org.mongodb:mongodb-driver:3.7.0'
-    implementation 'mysql:mysql-connector-java:8.0.16'
     implementation 'com.vdurmont:emoji-java:5.1.1'
-    implementation 'io.sentry:sentry:5.0.1'
-    implementation 'com.konghq:unirest-java:3.11.09'
+
+    implementation 'io.sentry:sentry:5.1.1'
+    implementation 'com.konghq:unirest-java:3.11.12'
+
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation 'com.google.inject:guice:5.0.1'
+
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.0'
+    implementation 'org.mongodb:mongodb-driver-reactivestreams:4.3.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
 }
 
 application {
-    mainClass = 'de.fbrettnich.easypoll.core.Main'
+    mainClass = 'de.fbrettnich.easypoll.EasyPoll'
 }
 
 tasks.withType(JavaCompile) {

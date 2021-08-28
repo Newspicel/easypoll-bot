@@ -1,39 +1,35 @@
-/*
- * EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)
- * Copyright (C) 2021  Felix Brettnich
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package de.fbrettnich.easypoll.database;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoClients;
+import com.mongodb.reactivestreams.client.MongoCollection;
+import com.mongodb.reactivestreams.client.MongoDatabase;
+import de.fbrettnich.easypoll.files.ConfigFile;
+import org.bson.Document;
+import org.bson.UuidRepresentation;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class MongoDB {
 
     private final MongoClient mongoClient;
-    private final DB db;
+    private final MongoDatabase mongoDatabase;
 
-    public MongoDB(String clientUri, String database) {
+    @Inject
+    public MongoDB(ConfigFile configFile) {
 
-        MongoClientURI uri = new MongoClientURI(clientUri);
+        MongoClientSettings mongoClientSettings= MongoClientSettings.builder()
+                .applyConnectionString(new ConnectionString(configFile.getString("mongodb.clienturi")))
+                .uuidRepresentation(UuidRepresentation.JAVA_LEGACY)
+                .build();
 
-        this.mongoClient = new MongoClient(uri);
-        this.db = mongoClient.getDB(database);
+        this.mongoClient = MongoClients.create(mongoClientSettings);
+        this.mongoDatabase = mongoClient.getDatabase(configFile.getString("mongodb.database"));
 
     }
 
@@ -51,7 +47,7 @@ public class MongoDB {
      * @param collection name
      * @return DBCollection
      */
-    public DBCollection getCollection(String collection) {
-        return db.getCollection(collection);
+    public MongoCollection<Document> getCollection(String collection) {
+        return mongoDatabase.getCollection(collection);
     }
 }

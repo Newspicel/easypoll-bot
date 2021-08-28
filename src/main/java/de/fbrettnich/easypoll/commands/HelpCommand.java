@@ -1,56 +1,45 @@
-/*
- * EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)
- * Copyright (C) 2021  Felix Brettnich
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package de.fbrettnich.easypoll.commands;
 
 import de.fbrettnich.easypoll.core.Constants;
 import de.fbrettnich.easypoll.language.GuildLanguage;
+import de.fbrettnich.easypoll.language.GuildLanguageService;
 import io.sentry.Sentry;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.awt.*;
 
+@Singleton
 public class HelpCommand {
+    
+    @Inject
+    private GuildLanguageService guildLanguageService;
 
-    public HelpCommand(@Nonnull SlashCommandEvent event, GuildLanguage gl) {
+    public void run(@Nonnull SlashCommandEvent event, GuildLanguage gl) {
 
         EmbedBuilder eb = new EmbedBuilder();
 
-        eb.setTitle(gl.getTl("commands.help.title"), Constants.WEBSITE_URL);
+        eb.setTitle(guildLanguageService.getTranslation(gl, "commands.help.title"), Constants.WEBSITE_URL);
         eb.setColor(Color.decode("#FDA50F"));
 
         eb.addField(
-                gl.getTl("commands.help.fields.poll_commands.title"),
-                "**/poll** \u2022 " + gl.getTl("commands.help.fields.poll_commands.commands.poll") + "\n" +
-                        "**/timepoll** \u2022 " + gl.getTl("commands.help.fields.poll_commands.commands.timepoll") + "\n" +
-                        "**/closepoll** \u2022 " + gl.getTl("commands.help.fields.poll_commands.commands.closepoll"),
+                guildLanguageService.getTranslation(gl, "commands.help.fields.poll_commands.title"),
+                "**/poll** \u2022 " + guildLanguageService.getTranslation(gl, "commands.help.fields.poll_commands.commands.poll") + "\n" +
+                        "**/timepoll** \u2022 " + guildLanguageService.getTranslation(gl, "commands.help.fields.poll_commands.commands.timepoll") + "\n" +
+                        "**/closepoll** \u2022 " + guildLanguageService.getTranslation(gl, "commands.help.fields.poll_commands.commands.closepoll"),
                 false
         );
 
         eb.addField(
-                gl.getTl("commands.help.fields.public_commands.title"),
-                "**/help** \u2022 " + gl.getTl("commands.help.fields.public_commands.commands.help") + "\n" +
-                        "**/vote** \u2022 " + gl.getTl("commands.help.fields.public_commands.commands.vote") + "\n" +
-                        "**/invite** \u2022 " + gl.getTl("commands.help.fields.public_commands.commands.invite") + "\n" +
-                        "**/info** \u2022 " + gl.getTl("commands.help.fields.public_commands.commands.info") + "\n" +
-                        "**/ping** \u2022 " + gl.getTl("commands.help.fields.public_commands.commands.ping"),
+                guildLanguageService.getTranslation(gl, "commands.help.fields.public_commands.title"),
+                "**/help** \u2022 " + guildLanguageService.getTranslation(gl, "commands.help.fields.public_commands.commands.help") + "\n" +
+                        "**/vote** \u2022 " + guildLanguageService.getTranslation(gl, "commands.help.fields.public_commands.commands.vote") + "\n" +
+                        "**/invite** \u2022 " + guildLanguageService.getTranslation(gl, "commands.help.fields.public_commands.commands.invite") + "\n" +
+                        "**/info** \u2022 " + guildLanguageService.getTranslation(gl, "commands.help.fields.public_commands.commands.info") + "\n" +
+                        "**/ping** \u2022 " + guildLanguageService.getTranslation(gl, "commands.help.fields.public_commands.commands.ping"),
                 false
         );
 

@@ -1,32 +1,19 @@
-/*
- * EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)
- * Copyright (C) 2021  Felix Brettnich
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package de.fbrettnich.easypoll.language;
 
 import io.sentry.Sentry;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.*;
+import javax.inject.Singleton;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Singleton
 public class TranslationManager {
 
     private final ArrayList<String> languages = new ArrayList<>();
@@ -43,6 +30,7 @@ public class TranslationManager {
         for (String countryCode : countryCodes) {
             loadTranslation(countryCode);
         }
+        languages.sort(String::compareTo);
     }
 
     /**
@@ -70,7 +58,6 @@ public class TranslationManager {
      *
      * @param stream {@link InputStream}
      * @return {@link InputStream} as {@link String}
-     * @throws IOException
      */
     private String inputStreamToString(InputStream stream) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -116,7 +103,7 @@ public class TranslationManager {
         if (translations.containsKey(lang + ":" + key)) {
             return translations.get(lang + ":" + key);
         }else {
-            return translations.getOrDefault("en:" + key, "[Empty translation " + key + "]");
+            return translations.getOrDefault("en:" + key, "[Empty translation " +lang+":"+ key + "]");
         }
     }
 

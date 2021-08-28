@@ -1,26 +1,6 @@
-/*
- * EasyPoll Discord Bot (https://github.com/fbrettnich/easypoll-bot)
- * Copyright (C) 2021  Felix Brettnich
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package de.fbrettnich.easypoll.listener;
 
 import de.fbrettnich.easypoll.core.Constants;
-import de.fbrettnich.easypoll.utils.Statistics;
-import de.fbrettnich.easypoll.utils.enums.StatisticsEvents;
 import io.sentry.Sentry;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
@@ -73,30 +53,29 @@ public class MessageReactionAddListener extends ListenerAdapter {
                 }
 
                 switch (event.getReactionEmote().getName()) {
-                    case "\uD83D\uDC4D": { // 👍 :thumbsup:
+                    case "\uD83D\uDC4D" -> { // 👍 :thumbsup:
 
                         messageReactions.get(1).retrieveUsers().queue(users -> {
                             if (users.contains(user)) {
                                 try {
                                     messageReactions.get(1).removeReaction(user).queue(null, Sentry::captureException);
-                                }catch (InsufficientPermissionException ignored) { }
+                                } catch (InsufficientPermissionException ignored) {
+                                }
                             }
                         }, Sentry::captureException);
 
-                        break;
                     }
-
-                    case "\uD83D\uDC4E": { // 👎 :thumbsdown:
+                    case "\uD83D\uDC4E" -> { // 👎 :thumbsdown:
 
                         messageReactions.get(0).retrieveUsers().queue(users -> {
                             if (users.contains(user)) {
                                 try {
                                     messageReactions.get(0).removeReaction(user).queue(null, Sentry::captureException);
-                                }catch (InsufficientPermissionException ignored) { }
+                                } catch (InsufficientPermissionException ignored) {
+                                }
                             }
                         }, Sentry::captureException);
 
-                        break;
                     }
                 }
 
@@ -143,6 +122,5 @@ public class MessageReactionAddListener extends ListenerAdapter {
             }catch (InsufficientPermissionException ignored) { }
         }
 
-        Statistics.insertEventCall(StatisticsEvents.REACTIONADD);
     }
 }

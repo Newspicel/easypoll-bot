@@ -64,15 +64,20 @@ Please also read the [contributing guidelines](https://github.com/fbrettnich/eas
 We are happy about any contribution &#9786;
 
 ## Dependencies
+### Discord
 - [JDA (Java Discord API)](https://github.com/DV8FromTheWorld/JDA/)
-- [mongodb-driver](https://github.com/TenorioStephano/MongoDB)
-- [mysql-connector-j](https://github.com/mysql/mysql-connector-j)
 - [emoji-java](https://github.com/vdurmont/emoji-java)
+### Database
+- [mongo-java-driver-reactivestreams](https://github.com/mongodb/mongo-java-driver-reactivestreams)
+### Tools
+- [RXJava3](https://github.com/ReactiveX/RxJava)
 - [sentry-java](https://github.com/getsentry/sentry-java)
 - [unirest-java](https://github.com/Kong/unirest-java)
 - [json-simple](https://github.com/fangyidong/json-simple)
+- [Guice](https://github.com/google/guice)
+- [Lombok](https://github.com/projectlombok/lombok)
+
 
 ## Self-Hosting
-Running your own version of EasyPoll Bot is not supported.  
-No help is provided for editing, compiling or building this code.  
+Running your own version of EasyPoll Bot is in this version supported.  
 All changes must follow the [license][license].

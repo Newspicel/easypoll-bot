@@ -1,6 +1,6 @@
 <!--
 Please read the contributing guidelines to contribute properly!
-Contributing Guidelines: https://github.com/fbrettnich/easypoll-bot/blob/main/.github/CONTRIBUTING.md
+Contributing Guidelines: https://github.com/newspicel/easypoll-bot/blob/main/.github/CONTRIBUTING.md
 !! Important: The commits have to be signed !!
 -->
 
@@ -11,7 +11,7 @@ Contributing Guidelines: https://github.com/fbrettnich/easypoll-bot/blob/main/.g
 - [ ] Documentation
 - [ ] Other: \___ <!-- Insert another type -->
 
-Closes NaN <!-- Replace 'NaN' with a issue number that belongs to this pull request. -->
+Closes NaN <!-- Replace 'NaN' with an issue number that belongs to this pull request. -->
 
 ### Description
 
