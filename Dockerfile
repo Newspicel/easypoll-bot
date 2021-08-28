@@ -13,7 +13,7 @@ RUN gradle shadowJar || return 0
 COPY . .
 
 FROM openjdk:16-jdk-slim
-ENV ARTIFACT_NAME=EasyPoll-3.0-all.jar
+ENV ARTIFACT_NAME=EasyPoll-4.0-all.jar
 ENV APP_HOME=/usr/app/
 
 WORKDIR $APP_HOME
